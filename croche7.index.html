@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crochê Day | Peças artesanais à pronta entrega e encomendas</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #d88099;
+            --primary-dark: #b85e78;
+            --primary-light: #fce8ee;
+            --accent: #e5a9b8;
+            --bg-light: #fffafb;
+            --text-dark: #4a3e43;
+            --text-muted: #7d6b72;
+            --white: #ffffff;
+            --whatsapp-green: #25d366;
+            --whatsapp-green-hover: #1da851;
+            --shadow: 0 10px 30px rgba(216, 128, 153, 0.15);
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand-logo {
+            font-family: 'Comfortaa', cursive;
+        }
+
+        /* --- Header / Navbar --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-logo i {
+            color: var(--primary);
+        }
+
+        .btn-nav {
+            background-color: var(--whatsapp-green);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-nav:hover {
+            background-color: var(--whatsapp-green-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 140px 0 70px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--primary-light) 0%, var(--bg-light) 100%);
+        }
+
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .hero-tag {
+            background: var(--white);
+            color: var(--primary-dark);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--accent);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 18px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 30px;
+        }
+
+        .btn-hero {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background-color: var(--whatsapp-green);
+            color: var(--white);
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-hero:hover {
+            background-color: var(--whatsapp-green-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        /* --- Features / Diferenciais --- */
+        .features {
+            padding: 50px 0;
+        }
+
+        .grid-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 25px 18px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(216, 128, 153, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 55px;
+            height: 55px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin: 0 auto 12px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Seção Quem Somos --- */
+        .about {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 380px;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            font-size: 3.5rem;
+            border: 2px solid var(--primary-light);
+        }
+
+        .about-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+
+        .about-text p {
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .about-highlight {
+            background-color: var(--primary-light);
+            padding: 15px 20px;
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* --- Catalog / Galeria das Categorias --- */
+        .catalog {
+            padding: 60px 0;
+            background: var(--bg-light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .grid-catalog {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(216, 128, 153, 0.15);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-img {
+            height: 280px;
+            background-color: var(--primary-light);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            font-size: 3rem;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 12px;
+            transition: transform 0.4s ease;
+            cursor: pointer; /* Indica que a imagem é clicável */
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 22px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-info h3 {
+            font-size: 1.25rem;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .product-info p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        .btn-card {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 12px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .btn-card:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* --- Testimonials --- */
+        .testimonials {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .grid-testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .testimonial-card {
+            background: var(--bg-light);
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+
+        .stars {
+            color: #ffb400;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .client-name {
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+        }
+
+        /* --- CTA Final --- */
+        .cta-final {
+            padding: 70px 0;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #f7d6e0 100%);
+            text-align: center;
+        }
+
+        .cta-final h2 {
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+
+        .cta-final p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* --- Floating WhatsApp Button --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--whatsapp-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 9999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: var(--whatsapp-green-hover);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* =============================================================
+           ESTILOS DO MODAL (VISUALIZADOR DE FOTO EM TAMANHO CHEIO)
+           ============================================================= */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            object-fit: contain;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        #modalCaption {
+            margin-top: 15px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            font-family: 'Comfortaa', cursive;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.9rem; }
+            .hero p { font-size: 1rem; }
+            .btn-hero { font-size: 1.05rem; padding: 14px 28px; width: 100%; }
+            .section-header h2 { font-size: 1.6rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 25px; }
+            .about-img { height: 280px; }
+            .close-modal { top: 15px; right: 20px; font-size: 35px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="brand-logo">
+                <i class="fa-solid fa-heart"></i> Crochê Day
+            </a>
+            <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento" target="_blank" class="btn-nav">
+                <i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-tags">
+                <span class="hero-tag"><i class="fa-solid fa-bolt"></i> Peças a Pronta Entrega</span>
+                <span class="hero-tag"><i class="fa-solid fa-wand-magic-sparkles"></i> Encomendas Personalizadas</span>
+            </div>
+            <h1>Arte em Crochê para Você e seu Lar</h1>
+            <p>Descubra nossa coleção exclusiva de bolsas, mesa posta, moda casa, vestuário e chaveiros. Peças 100% feitas à mão com amor e qualidade impecável.</p>
+            
+            <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento" target="_blank" class="btn-hero">
+                <i class="fa-brands fa-whatsapp"></i> Peça pelo WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Diferenciais -->
+    <section class="features">
+        <div class="container">
+            <div class="grid-features">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                    <h3>Pronta Entrega</h3>
+                    <p>Peças lindas disponíveis para envio imediato para todo o Brasil.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                    <h3>100% Feito à Mão</h3>
+                    <p>Produzido com dedicação, carinho e materiais de excelente qualidade.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-palette"></i></div>
+                    <h3>Personalizável</h3>
+                    <p>Escolha as cores e detalhes do seu jeito para peças sob encomenda.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-gift"></i></div>
+                    <h3>Embalagem Especial</h3>
+                    <p>Sua encomenda vai cheirosa e pronta para presentear.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quem Somos -->
+    <section class="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-img">
+                    <img src="quem-somos.jpg" alt="Quem Somos - Crochê Day" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-heart\'></i>';">
+                </div>
+                <div class="about-text">
+                    <h2>Quem Somos</h2>
+                    <p>O <strong>Crochê Day</strong> nasceu da paixão pelo trabalho artesanal e pelo desejo de transformar fios em peças únicas, cheias de afeto e significado.</p>
+                    <p>Cada ponto é feito com extrema atenção aos detalhes, utilizando linhas e materiais selecionados para garantir durabilidade, beleza e um acabamento impecável.</p>
+                    <div class="about-highlight">
+                        "Mais do que criar peças em crochê, entregamos carinho em forma de arte para você e para o seu lar."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria de Categorias -->
+    <section class="catalog">
+        <div class="container">
+            <div class="section-header">
+                <h2>Conheça Nossos Trabalhos</h2>
+                <p>Navegue pelas nossas categorias (Clique na foto para ampliar)</p>
+            </div>
+
+            <div class="grid-catalog">
+
+                <!-- Categoria 1: Mesa Posta -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="mesa-posta.jpg" alt="Mesa Posta em Crochê" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-utensils\'></i>';">
+                        <span class="product-badge">Destaque</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Mesa Posta</h3>
+                        <p>Sousplats, porta-guardanapos, trilhos de mesa e jogos americanos elegantes para receber com carinho.</p>
+                        <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20para%20Mesa%20Posta" target="_blank" class="btn-card">
+                            <i class="fa-brands fa-whatsapp"></i> Ver Modelos / Orçamento
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Categoria 2: Moda Casa -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="moda-casa.jpg" alt="Moda Casa em Crochê" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-house-chimney-window\'></i>';">
+                        <span class="product-badge">Pronta Entrega & Encomenda</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Moda Casa</h3>
+                        <p>Jogos de banheiro, tapetes e capas decorativas elegantes para transformar os ambientes da sua casa.</p>
+                        <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20para%20Moda%20Casa" target="_blank" class="btn-card">
+                            <i class="fa-brands fa-whatsapp"></i> Ver Modelos / Orçamento
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Categoria 3: Bolsas -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="bolsas.jpg" alt="Bolsas de Crochê" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-bag-shopping\'></i>';">
+                        <span class="product-badge">Tendência</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Bolsas de Crochê</h3>
+                        <p>Bolsas modernas, tiracolo, de praia e modelos transversais. Estilo e praticidade para qualquer ocasião.</p>
+                        <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20para%20Bolsas" target="_blank" class="btn-card">
+                            <i class="fa-brands fa-whatsapp"></i> Ver Modelos / Orçamento
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Categoria 4: Chaveiros -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="chaveiros.jpg" alt="Chaveiros em Crochê" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-key\'></i>';">
+                        <span class="product-badge">Ótimo para Presente</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Chaveiros & Mimos</h3>
+                        <p>Chaveiros fofos em amigurumi, corações e miniaturas. Ideais para lembrancinhas de eventos ou mimos especiais.</p>
+                        <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20para%20Chaveiros" target="_blank" class="btn-card">
+                            <i class="fa-brands fa-whatsapp"></i> Ver Modelos / Orçamento
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Categoria 5: Vestuário -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="vestuario.jpg" alt="Vestuário em Crochê" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-shirt\'></i>';">
+                    </div>
+                    <div class="product-info">
+                        <h3>Vestuário</h3>
+                        <p>Tops, saídas de praia, croppeds, blusas e peças exclusivas feitas sob medida para o seu estilo.</p>
+                        <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20para%20Vestu%C3%A1rio" target="_blank" class="btn-card">
+                            <i class="fa-brands fa-whatsapp"></i> Ver Modelos / Orçamento
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>O Que Dizem Nossas Clientes</h2>
+                <p>O carinho de quem já comprou conosco</p>
+            </div>
+
+            <div class="grid-testimonials">
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Comprei uma bolsa para pronta entrega e chegou super rápido! O acabamento é impecável e a embalagem veio muito cheirosa."</p>
+                    <span class="client-name">— Mariana S.</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Pedi os chaveiros de lembrancinha para o chá de bebê da minha filha. Todo mundo amou o capricho!"</p>
+                    <span class="client-name">— Camila R.</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Atendimento rápido e atencioso pelo WhatsApp. O kit de mesa posta deixou minha sala linda!"</p>
+                    <span class="client-name">— Patricia M.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-final">
+        <div class="container">
+            <h2>Gostou de alguma peça ou quer a sua pronta entrega?</h2>
+            <p>Fale conosco no WhatsApp para consultar os modelos disponíveis hoje!</p>
+            <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento" target="_blank" class="btn-hero">
+                <i class="fa-brands fa-whatsapp"></i> Falar com a Artesã no WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Crochê Day — Todos os direitos reservados.</p>
+            <p><small>Feito à mão com amor ❤️</small></p>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento" class="whatsapp-float" target="_blank" title="Falar no WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- MODAL PARA VISUALIZAÇÃO DA FOTO AMPLIA DA -->
+    <div id="imageModal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImgSrc" alt="Imagem Ampliada">
+        <div id="modalCaption"></div>
+    </div>
+
+    <!-- SCRIPT JAVASCRIPT DO MODAL -->
+    <script>
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImgSrc");
+        const captionText = document.getElementById("modalCaption");
+        const closeModal = document.querySelector(".close-modal");
+
+        // Seleciona todas as imagens das categorias e da seção 'Quem Somos'
+        const images = document.querySelectorAll(".product-img img, .about-img img");
+
+        images.forEach(img => {
+            img.addEventListener("click", function() {
+                modal.classList.add("show");
+                modalImg.src = this.src;
+                captionText.innerText = this.alt;
+            });
+        });
+
+        // Fechar no botão X
+        closeModal.addEventListener("click", function() {
+            modal.classList.remove("show");
+        });
+
+        // Fechar ao clicar no fundo escuro
+        modal.addEventListener("click", function(e) {
+            if (e.target !== modalImg) {
+                modal.classList.remove("show");
+            }
+        });
+
+        // Fechar ao pressionar a tecla ESC
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape" && modal.classList.contains("show")) {
+                modal.classList.remove("show");
+            }
+        });
+    </script>
+
+</body>
+</html>
