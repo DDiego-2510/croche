@@ -381,24 +381,104 @@ src="https://www.facebook.com/tr?id=1707513280547703&ev=PageView&noscript=1"
             background-color: var(--primary-light);
             position: relative;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: var(--primary-dark);
             font-size: 3rem;
         }
 
-        .product-img img {
+        /* Carrossel de imagens das categorias */
+        .gallery-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s ease;
+            will-change: transform;
+        }
+
+        .gallery-slide {
+            min-width: 100%;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .gallery-slide img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             padding: 12px;
-            transition: transform 0.4s ease;
-            cursor: pointer; /* Indica que a imagem é clicável */
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
-        .product-card:hover .product-img img {
-            transform: scale(1.05);
+        .gallery-slide img:hover {
+            transform: scale(1.04);
+        }
+
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.88);
+            color: var(--primary-dark);
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 5;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .gallery-arrow:hover {
+            background: var(--primary-dark);
+            color: white;
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .gallery-prev { left: 10px; }
+        .gallery-next { right: 10px; }
+
+        .gallery-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            z-index: 5;
+            pointer-events: auto;
+        }
+
+        .gallery-dot {
+            width: 7px;
+            height: 7px;
+            padding: 0;
+            border: 1px solid rgba(0,0,0,0.15);
+            border-radius: 50%;
+            background: rgba(255,255,255,0.65);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .gallery-dot.active {
+            background: var(--primary-dark);
+            transform: scale(1.25);
+        }
+
+        .product-img .product-badge {
+            pointer-events: none;
         }
 
         .product-badge {
@@ -617,6 +697,37 @@ src="https://www.facebook.com/tr?id=1707513280547703&ev=PageView&noscript=1"
             color: var(--primary);
         }
 
+        .modal-gallery-prev,
+        .modal-gallery-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-dark);
+            font-size: 36px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10002;
+            transition: all 0.2s ease;
+        }
+
+        .modal-gallery-prev:hover,
+        .modal-gallery-next:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .modal-gallery-prev { left: 25px; }
+        .modal-gallery-next { right: 25px; }
+
         /* Responsivo */
         @media (max-width: 768px) {
             .hero h1 { font-size: 1.9rem; }
@@ -626,6 +737,14 @@ src="https://www.facebook.com/tr?id=1707513280547703&ev=PageView&noscript=1"
             .about-grid { grid-template-columns: 1fr; gap: 25px; }
             .about-img { height: 280px; }
             .close-modal { top: 15px; right: 20px; font-size: 35px; }
+            .modal-gallery-prev,
+            .modal-gallery-next {
+                width: 42px;
+                height: 42px;
+                font-size: 30px;
+            }
+            .modal-gallery-prev { left: 10px; }
+            .modal-gallery-next { right: 10px; }
 
         }
     </style>
@@ -697,7 +816,7 @@ src="https://www.facebook.com/tr?id=1707513280547703&ev=PageView&noscript=1"
         <div class="container">
             <div class="about-grid">
                 <div class="about-img">
-                    <img src="quem-somos.jpg" alt="Quem Somos - Crochê Day" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-heart\'></i>';">
+                    <img src="quem-somos.jpg" alt="Quem Somos - Crochê Day">
                 </div>
                 <div class="about-text">
                     <h2>Quem Somos</h2>
@@ -723,8 +842,46 @@ src="https://www.facebook.com/tr?id=1707513280547703&ev=PageView&noscript=1"
 
                 <!-- Categoria 1: Mesa Posta -->
                 <div class="product-card">
-                    <div class="product-img">
-                        <img src="mesa-posta.jpg" alt="Mesa Posta em Crochê" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-utensils\'></i>';">
+                    <div class="product-img" data-gallery="mesa-posta">
+                        <div class="gallery-track">
+                        <div class="gallery-slide">
+                            <img src="mesa-posta.jpg" alt="Mesa Posta em Crochê">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="mesa-posta-1.jpg" alt="Mesa Posta em Crochê - Modelo 1">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="mesa-posta-2.jpg" alt="Mesa Posta em Crochê - Modelo 2">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="mesa-posta-3.jpg" alt="Mesa Posta em Crochê - Modelo 3">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="mesa-posta-4.jpg" alt="Mesa Posta em Crochê - Modelo 4">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="mesa-posta-5.jpg" alt="Mesa Posta em Crochê - Modelo 5">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="mesa-posta-6.jpg" alt="Mesa Posta em Crochê - Modelo 6">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="mesa-posta-7.jpg" alt="Mesa Posta em Crochê - Modelo 7">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="mesa-posta-8.jpg" alt="Mesa Posta em Crochê - Modelo 8">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="mesa-posta-9.jpg" alt="Mesa Posta em Crochê - Modelo 9">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="mesa-posta-10.jpg" alt="Mesa Posta em Crochê - Modelo 10">
+                        </div>
+                        </div>
+
+                        <button type="button" class="gallery-arrow gallery-prev" aria-label="Imagem anterior">&#10094;</button>
+                        <button type="button" class="gallery-arrow gallery-next" aria-label="Próxima imagem">&#10095;</button>
+                        <div class="gallery-dots" aria-label="Navegação das imagens"></div>
                         <span class="product-badge">Destaque</span>
                     </div>
                     <div class="product-info">
@@ -738,8 +895,40 @@ src="https://www.facebook.com/tr?id=1707513280547703&ev=PageView&noscript=1"
 
                 <!-- Categoria 2: Moda Casa -->
                 <div class="product-card">
-                    <div class="product-img">
-                        <img src="moda-casa.jpg" alt="Moda Casa em Crochê" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-house-chimney-window\'></i>';">
+                    <div class="product-img" data-gallery="moda-casa">
+                        <div class="gallery-track">
+                        <div class="gallery-slide">
+                            <img src="moda-casa.jpg" alt="Moda Casa em Crochê">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="moda-casa-1.jpg" alt="Moda Casa em Crochê - Modelo 1">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="moda-casa-2.jpg" alt="Moda Casa em Crochê - Modelo 2">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="moda-casa-3.jpg" alt="Moda Casa em Crochê - Modelo 3">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="moda-casa-4.jpg" alt="Moda Casa em Crochê - Modelo 4">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="moda-casa-5.jpg" alt="Moda Casa em Crochê - Modelo 5">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="moda-casa-6.jpg" alt="Moda Casa em Crochê - Modelo 6">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="moda-casa-7.jpg" alt="Moda Casa em Crochê - Modelo 7">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="moda-casa-8.jpg" alt="Moda Casa em Crochê - Modelo 8">
+                        </div>
+                        </div>
+
+                        <button type="button" class="gallery-arrow gallery-prev" aria-label="Imagem anterior">&#10094;</button>
+                        <button type="button" class="gallery-arrow gallery-next" aria-label="Próxima imagem">&#10095;</button>
+                        <div class="gallery-dots" aria-label="Navegação das imagens"></div>
                         <span class="product-badge">Pronta Entrega & Encomenda</span>
                     </div>
                     <div class="product-info">
@@ -753,8 +942,34 @@ src="https://www.facebook.com/tr?id=1707513280547703&ev=PageView&noscript=1"
 
                 <!-- Categoria 3: Bolsas -->
                 <div class="product-card">
-                    <div class="product-img">
-                        <img src="bolsas.jpg" alt="Bolsas de Crochê" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-bag-shopping\'></i>';">
+                    <div class="product-img" data-gallery="bolsas">
+                        <div class="gallery-track">
+                        <div class="gallery-slide">
+                            <img src="bolsas.jpg" alt="Bolsas de Crochê">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="bolsas-1.jpg" alt="Bolsas de Crochê - Modelo 1">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="bolsas-2.jpg" alt="Bolsas de Crochê - Modelo 2">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="bolsas-3.jpg" alt="Bolsas de Crochê - Modelo 3">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="bolsas-4.jpg" alt="Bolsas de Crochê - Modelo 4">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="bolsas-5.jpg" alt="Bolsas de Crochê - Modelo 5">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="bolsas-6.jpg" alt="Bolsas de Crochê - Modelo 6">
+                        </div>
+                        </div>
+
+                        <button type="button" class="gallery-arrow gallery-prev" aria-label="Imagem anterior">&#10094;</button>
+                        <button type="button" class="gallery-arrow gallery-next" aria-label="Próxima imagem">&#10095;</button>
+                        <div class="gallery-dots" aria-label="Navegação das imagens"></div>
                         <span class="product-badge">Tendência</span>
                     </div>
                     <div class="product-info">
@@ -768,12 +983,35 @@ src="https://www.facebook.com/tr?id=1707513280547703&ev=PageView&noscript=1"
 
                 <!-- Categoria 4: Chaveiros -->
                 <div class="product-card">
-                    <div class="product-img">
-                        <img src="chaveiros.jpg" alt="Chaveiros em Crochê" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-key\'></i>';">
+                    <div class="product-img" data-gallery="chaveiros">
+                        <div class="gallery-track">
+                        <div class="gallery-slide">
+                            <img src="chaveiros.jpg" alt="Chaveiros em Crochê">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="chaveiros-1.jpg" alt="Chaveiros em Crochê - Modelo 1">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="chaveiros-2.jpg" alt="Chaveiros em Crochê - Modelo 2">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="chaveiros-3.jpg" alt="Chaveiros em Crochê - Modelo 3">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="chaveiros-4.jpg" alt="Chaveiros em Crochê - Modelo 4">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="chaveiros-5.jpg" alt="Chaveiros em Crochê - Modelo 5">
+                        </div>
+                        </div>
+
+                        <button type="button" class="gallery-arrow gallery-prev" aria-label="Imagem anterior">&#10094;</button>
+                        <button type="button" class="gallery-arrow gallery-next" aria-label="Próxima imagem">&#10095;</button>
+                        <div class="gallery-dots" aria-label="Navegação das imagens"></div>
                         <span class="product-badge">Ótimo para Presente</span>
                     </div>
                     <div class="product-info">
-                        <h3>Chaveiros & Mimos</h3>
+                        <h3>Chaveiros &amp; Mimos</h3>
                         <p>Chaveiros fofos em amigurumi, corações e miniaturas. Ideais para lembrancinhas de eventos ou mimos especiais.</p>
                         <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20para%20Chaveiros" target="_blank" class="btn-card">
                             <i class="fa-brands fa-whatsapp"></i> Ver Modelos / Orçamento
@@ -783,13 +1021,36 @@ src="https://www.facebook.com/tr?id=1707513280547703&ev=PageView&noscript=1"
 
                 <!-- Categoria 5: Vestuário -->
                 <div class="product-card">
-                    <div class="product-img">
-                        <img src="vestuario.jpg" alt="Vestuário em Crochê" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-shirt\'></i>';">
+                    <div class="product-img" data-gallery="vestuario">
+                        <div class="gallery-track">
+                        <div class="gallery-slide">
+                            <img src="vestuário.jpg" alt="Vestuário em Crochê">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="vestuario-1.jpg" alt="Vestuário em Crochê - Modelo 1">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="vestuario-2.jpg" alt="Vestuário em Crochê - Modelo 2">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="vestuario-3.jpg" alt="Vestuário em Crochê - Modelo 3">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="vestuario-4.jpg" alt="Vestuário em Crochê - Modelo 4">
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="vestuario-5.jpg" alt="Vestuário em Crochê - Modelo 5">
+                        </div>
+                        </div>
+
+                        <button type="button" class="gallery-arrow gallery-prev" aria-label="Imagem anterior">&#10094;</button>
+                        <button type="button" class="gallery-arrow gallery-next" aria-label="Próxima imagem">&#10095;</button>
+                        <div class="gallery-dots" aria-label="Navegação das imagens"></div>
                     </div>
                     <div class="product-info">
                         <h3>Vestuário</h3>
                         <p>Tops, saídas de praia, croppeds, blusas e peças exclusivas feitas sob medida para o seu estilo.</p>
-                        <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20para%20Vestu%C3%A1rio" target="_blank" class="btn-card">
+                        <a href="https://wa.me/5521974372650?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20para%20Vestuário" target="_blank" class="btn-card">
                             <i class="fa-brands fa-whatsapp"></i> Ver Modelos / Orçamento
                         </a>
                     </div>
@@ -1085,45 +1346,216 @@ src="https://www.facebook.com/tr?id=1707513280547703&ev=PageView&noscript=1"
 
     <!-- MODAL PARA VISUALIZAÇÃO DA FOTO AMPLIA DA -->
     <div id="imageModal" class="image-modal">
-        <span class="close-modal">&times;</span>
+        <span class="close-modal" aria-label="Fechar">&times;</span>
+        <button type="button" class="modal-gallery-prev" id="modalPrev" aria-label="Imagem anterior">&#10094;</button>
         <img class="modal-content" id="modalImgSrc" alt="Imagem Ampliada">
+        <button type="button" class="modal-gallery-next" id="modalNext" aria-label="Próxima imagem">&#10095;</button>
         <div id="modalCaption"></div>
     </div>
 
-    <!-- SCRIPT JAVASCRIPT DO MODAL -->
+    <!-- SCRIPT JAVASCRIPT DO MODAL E DOS CARROSSÉIS -->
     <script>
         const modal = document.getElementById("imageModal");
         const modalImg = document.getElementById("modalImgSrc");
         const captionText = document.getElementById("modalCaption");
         const closeModal = document.querySelector(".close-modal");
+        const modalPrev = document.getElementById("modalPrev");
+        const modalNext = document.getElementById("modalNext");
 
-        // Seleciona todas as imagens das categorias e da seção 'Quem Somos'
-        const images = document.querySelectorAll(".product-img img, .about-img img");
+        // -------------------------------------------------------------
+        // CARROSSÉIS DAS CATEGORIAS
+        // -------------------------------------------------------------
+        const galleries = [];
 
-        images.forEach(img => {
-            img.addEventListener("click", function() {
-                modal.classList.add("show");
-                modalImg.src = this.src;
-                captionText.innerText = this.alt;
+        document.querySelectorAll(".product-img[data-gallery]").forEach((galleryElement) => {
+            const track = galleryElement.querySelector(".gallery-track");
+            const slides = galleryElement.querySelectorAll(".gallery-slide");
+            const prevButton = galleryElement.querySelector(".gallery-prev");
+            const nextButton = galleryElement.querySelector(".gallery-next");
+            const dotsContainer = galleryElement.querySelector(".gallery-dots");
+            let currentIndex = 0;
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            // Cria uma bolinha para cada imagem automaticamente.
+            slides.forEach((slide, index) => {
+                const dot = document.createElement("button");
+                dot.type = "button";
+                dot.className = "gallery-dot";
+                dot.setAttribute("aria-label", `Ir para a imagem ${index + 1}`);
+                dot.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    showSlide(index);
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = dotsContainer.querySelectorAll(".gallery-dot");
+
+            function showSlide(index) {
+                if (index < 0) index = slides.length - 1;
+                if (index >= slides.length) index = 0;
+                currentIndex = index;
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+                dots.forEach((dot, dotIndex) => {
+                    dot.classList.toggle("active", dotIndex === currentIndex);
+                });
+            }
+
+            prevButton.addEventListener("click", (event) => {
+                event.stopPropagation();
+                showSlide(currentIndex - 1);
+            });
+
+            nextButton.addEventListener("click", (event) => {
+                event.stopPropagation();
+                showSlide(currentIndex + 1);
+            });
+
+            // Passar para o lado no celular/tablet arrastando o dedo.
+            galleryElement.addEventListener("touchstart", (event) => {
+                touchStartX = event.changedTouches[0].screenX;
+            }, { passive: true });
+
+            galleryElement.addEventListener("touchend", (event) => {
+                touchEndX = event.changedTouches[0].screenX;
+                const distance = touchEndX - touchStartX;
+
+                if (Math.abs(distance) > 50) {
+                    if (distance < 0) {
+                        showSlide(currentIndex + 1);
+                    } else {
+                        showSlide(currentIndex - 1);
+                    }
+                }
+            }, { passive: true });
+
+            showSlide(0);
+
+            galleries.push({
+                element: galleryElement,
+                getCurrentIndex: () => currentIndex,
+                showSlide,
+                images: Array.from(galleryElement.querySelectorAll(".gallery-slide img"))
             });
         });
 
-        // Fechar no botão X
-        closeModal.addEventListener("click", function() {
+        // -------------------------------------------------------------
+        // MODAL DE IMAGEM AMPLIADA
+        // -------------------------------------------------------------
+        let modalImages = [];
+        let modalIndex = 0;
+        let modalTouchStartX = 0;
+        let modalTouchEndX = 0;
+
+        function updateModalImage() {
+            if (!modalImages.length) return;
+
+            const currentImage = modalImages[modalIndex];
+            modalImg.src = currentImage.src;
+            modalImg.alt = currentImage.alt;
+            captionText.innerText = currentImage.alt;
+        }
+
+        function showModalImage(index) {
+            if (!modalImages.length) return;
+
+            if (index < 0) index = modalImages.length - 1;
+            if (index >= modalImages.length) index = 0;
+
+            modalIndex = index;
+            updateModalImage();
+        }
+
+        function openModal(image, galleryImages = null) {
+            if (galleryImages && galleryImages.length) {
+                modalImages = galleryImages;
+                modalIndex = modalImages.indexOf(image);
+                if (modalIndex < 0) modalIndex = 0;
+            } else {
+                modalImages = [image];
+                modalIndex = 0;
+            }
+
+            updateModalImage();
+            modal.classList.add("show");
+        }
+
+        // Clique nas imagens das categorias.
+        document.querySelectorAll(".gallery-slide img").forEach((img) => {
+            img.addEventListener("click", (event) => {
+                event.stopPropagation();
+
+                const galleryElement = img.closest(".product-img[data-gallery]");
+                const gallery = galleries.find(item => item.element === galleryElement);
+
+                if (gallery) {
+                    openModal(img, gallery.images);
+                } else {
+                    openModal(img);
+                }
+            });
+        });
+
+        // Clique na imagem "Quem Somos" continua abrindo a foto ampliada.
+        document.querySelectorAll(".about-img img").forEach((img) => {
+            img.addEventListener("click", () => openModal(img));
+        });
+
+        modalPrev.addEventListener("click", (event) => {
+            event.stopPropagation();
+            showModalImage(modalIndex - 1);
+        });
+
+        modalNext.addEventListener("click", (event) => {
+            event.stopPropagation();
+            showModalImage(modalIndex + 1);
+        });
+
+        // Arrastar a foto ampliada no celular/tablet.
+        modal.addEventListener("touchstart", (event) => {
+            modalTouchStartX = event.changedTouches[0].screenX;
+        }, { passive: true });
+
+        modal.addEventListener("touchend", (event) => {
+            modalTouchEndX = event.changedTouches[0].screenX;
+            const distance = modalTouchEndX - modalTouchStartX;
+
+            if (Math.abs(distance) > 50 && modalImages.length > 1) {
+                if (distance < 0) {
+                    showModalImage(modalIndex + 1);
+                } else {
+                    showModalImage(modalIndex - 1);
+                }
+            }
+        }, { passive: true });
+
+        // Fechar no botão X.
+        closeModal.addEventListener("click", () => {
             modal.classList.remove("show");
         });
 
-        // Fechar ao clicar no fundo escuro
-        modal.addEventListener("click", function(e) {
-            if (e.target !== modalImg) {
+        // Fechar ao clicar no fundo escuro.
+        modal.addEventListener("click", (event) => {
+            if (
+                event.target === modal ||
+                event.target === captionText
+            ) {
                 modal.classList.remove("show");
             }
         });
 
-        // Fechar ao pressionar a tecla ESC
-        document.addEventListener("keydown", function(e) {
-            if (e.key === "Escape" && modal.classList.contains("show")) {
+        // ESC fecha o modal. Setas do teclado trocam as fotos.
+        document.addEventListener("keydown", (event) => {
+            if (!modal.classList.contains("show")) return;
+
+            if (event.key === "Escape") {
                 modal.classList.remove("show");
+            } else if (event.key === "ArrowLeft" && modalImages.length > 1) {
+                showModalImage(modalIndex - 1);
+            } else if (event.key === "ArrowRight" && modalImages.length > 1) {
+                showModalImage(modalIndex + 1);
             }
         });
     </script>
